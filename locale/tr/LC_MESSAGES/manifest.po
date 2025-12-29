@@ -1,0 +1,6 @@
+# Quick Note Taker translation file
+msgid "Quick Note Taker"
+msgstr "Hızlı Not Al"
+
+msgid "Allows you to save dated and timed notes to the desktop with NVDA+Shift+N."
+msgstr "NVDA+Shift+N ile masaüstüne tarihli ve saatli notlar kaydetmenizi sağlar."
