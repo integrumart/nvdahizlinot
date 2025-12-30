@@ -1,0 +1,38 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: quickNote 2.0\n"
+"POT-Creation-Date: 2025-12-30 16:00+0300\n"
+"PO-Revision-Date: 2025-12-30 16:00+0300\n"
+"Last-Translator: Volkan Özdemir\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+
+msgid "Enter your note:"
+msgstr "Notunuzu giriniz:"
+
+msgid "OK"
+msgstr "Tamam"
+
+msgid "Cancel"
+msgstr "İptal"
+
+msgid "Donate"
+msgstr "Bağış Yap"
+
+msgid "Take a quick note"
+msgstr "Hızlı not al"
+
+msgid "Quick Note"
+msgstr "Hızlı Not"
+
+msgid "Volkan Ozdemir Software Services"
+msgstr "Volkan Özdemir Yazılım Hizmetleri"
+
+msgid "Please enter your note"
+msgstr "Lütfen notunuzu giriniz"
+
+msgid "Note saved to desktop."
+msgstr "Not masaüstüne kaydedildi."

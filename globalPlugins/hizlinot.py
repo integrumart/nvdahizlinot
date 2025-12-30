@@ -7,23 +7,28 @@ import wx
 import ui
 import speech
 import webbrowser
+import addonHandler
+
+# Dil desteği başlatılıyor
+addonHandler.initTranslation()
 
 class NoteDialog(wx.Dialog):
 	def __init__(self, parent, title):
+		# Mesajlar yerelleştirme için _() içine alındı
 		super(NoteDialog, self).__init__(parent, title=title, size=(450, 350))
 		panel = wx.Panel(self)
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		
-		lbl = wx.StaticText(panel, label="Notunuzu giriniz:")
+		lbl = wx.StaticText(panel, label=_("Enter your note:"))
 		vbox.Add(lbl, 0, wx.ALL | wx.EXPAND, 10)
 		
 		self.textCtrl = wx.TextCtrl(panel, style=wx.TE_MULTILINE)
 		vbox.Add(self.textCtrl, 1, wx.ALL | wx.EXPAND, 10)
 		
 		btnSizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.okBtn = wx.Button(panel, wx.ID_OK, label="Tamam")
-		self.cancelBtn = wx.Button(panel, wx.ID_CANCEL, label="İptal")
-		self.donateBtn = wx.Button(panel, label="Bağış Yap")
+		self.okBtn = wx.Button(panel, wx.ID_OK, label=_("OK"))
+		self.cancelBtn = wx.Button(panel, wx.ID_CANCEL, label=_("Cancel"))
+		self.donateBtn = wx.Button(panel, label=_("Donate"))
 		
 		btnSizer.Add(self.okBtn, 0, wx.ALL, 5)
 		btnSizer.Add(self.cancelBtn, 0, wx.ALL, 5)
@@ -35,23 +40,27 @@ class NoteDialog(wx.Dialog):
 		self.donateBtn.Bind(wx.EVT_BUTTON, self.onDonate)
 
 	def onDonate(self, event):
-		# PayTR Linki - Otomatik dil algılama
 		webbrowser.open("https://www.paytr.com/link/N2IAQKm")
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
+	# Joseph'in uyarısı üzerine sınıfın doğru başlatılması için __init__ eklendi
+	def __init__(self):
+		super().__init__()
+
 	@scriptHandler.script(
-		description="Hızlı Not Al",
-		gesture="kb:NVDA+shift+n"
+		# Açıklama İngilizceye çevrildi, kısayol (gesture) kullanıcıya bırakılmak üzere kaldırıldı
+		description=_("Take a quick note"),
+		category=_("Quick Note")
 	)
 	def script_takeQuickNote(self, gesture):
 		wx.CallAfter(self.showNoteDialog)
 
 	def showNoteDialog(self):
-		desktop = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
-		filePath = os.path.join(desktop, "Notlarim.txt")
+		desktop = os.path.join(os.path.expanduser('~'), 'Desktop')
+		filePath = os.path.join(desktop, "Notes.txt")
 		
-		dlg = NoteDialog(gui.mainFrame, "Volkan Özdemir Yazılım Hizmetleri")
-		speech.speakMessage("Lütfen notunuzu giriniz")
+		dlg = NoteDialog(gui.mainFrame, _("Volkan Ozdemir Software Services"))
+		speech.speakMessage(_("Please enter your note"))
 		
 		if dlg.ShowModal() == wx.ID_OK:
 			note = dlg.textCtrl.GetValue()
@@ -61,9 +70,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					with open(filePath, "a", encoding="utf-8") as f:
 						f.write(f"\n--- {now} ---\n{note}\n------------------\n")
 					
-					bilgi = "Not masaüstüne kaydedildi."
-					ui.message(bilgi)
-					speech.speakMessage(bilgi)
+					info = _("Note saved to desktop.")
+					ui.message(info)
+					speech.speakMessage(info)
 				except Exception as e:
 					ui.message(str(e))
 		dlg.Destroy()
