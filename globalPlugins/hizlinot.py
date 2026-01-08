@@ -37,17 +37,15 @@ class NoteDialog(wx.Dialog):
 		webbrowser.open("https://www.paytr.com/link/N2IAQKm")
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
-	def __init__(self):
-		super().__init__()
-
 	@scriptHandler.script(description=_("Take a quick note"), category=_("Quick Note"))
-	def script_takeQuickNote(self, gesture):
+	def script_takeQuickNote(self, gesture): # camelCase
 		wx.CallAfter(self.showNoteDialog)
 
-	def showNoteDialog(self):
+	def showNoteDialog(self): # camelCase
 		desktop = os.path.join(os.path.expanduser('~'), 'Desktop')
 		filePath = os.path.join(desktop, "Notes.txt")
-		dlg = NoteDialog(gui.mainFrame, _("Quick Note Taker v5.0 - Volkan Ozdemir Software Services"))
+		# Başlık İngilizce ve PascalCase ile uyumlu hale getirildi
+		dlg = NoteDialog(gui.mainFrame, _("Quick Note v5.0 - Volkan Ozdemir Software Services"))
 		speech.speakMessage(_("Please enter your note"))
 		if dlg.ShowModal() == wx.ID_OK:
 			note = dlg.textCtrl.GetValue().strip()
